@@ -1,0 +1,15 @@
+{
+  "extends": ["@project/config/tsconfig/tsconfig.json"],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "paths": {
+      "@project/domain": ["../domain/dist/index.d.ts"]
+    },
+    "outDir": "dist"
+  },
+  "types": ["node"],
+  "jsx": "react-jsx",
+  "jsxImportSource": "hono/jsx",
+  "include": ["src/**/*.ts"]
+}

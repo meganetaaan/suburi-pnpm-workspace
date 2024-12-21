@@ -1,0 +1,23 @@
+{
+  "name": "suburi-pnpm-workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pnpm recursive run build",
+    "watch": "pnpm recursive run watch"
+  },
+  "engines": {
+    "pnpm": "9.10.0",
+    "npm": "please_use_pnpm_instead",
+    "yarn": "please_use_pnpm_instead"
+  },
+  "packageManager": "pnpm@9.10.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "biome": "^0.3.3"
+  }
+}
