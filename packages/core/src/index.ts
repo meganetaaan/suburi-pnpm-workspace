@@ -3,7 +3,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 
 const app = new Hono();
-app.route("/user", userRoute);
+app.route("/users", userRoute);
 app.get("/", (c) => {
 	return c.text("Hello Hono!");
 });
