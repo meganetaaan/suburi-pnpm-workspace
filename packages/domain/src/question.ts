@@ -2,8 +2,9 @@ import { z } from "zod";
 
 export const questionScheme = z.object({
 	id: z.string().brand<"QuestionId">(),
-	content: z.string().nonempty(),
-	kanjis: z.array(z.string()).min(1),
+	sentence: z.string(),
+	sentenceWithRuby: z.string(),
+	kanjis: z.array(z.string()),
 	topics: z.array(z.string()),
 });
 

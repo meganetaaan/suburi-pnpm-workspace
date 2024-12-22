@@ -9,3 +9,12 @@ Content-Type: application/json
 
 ### 全件取得
 GET http://localhost:3000/users
+
+### questionを1件生成
+POST http://localhost:3000/questions/generate
+Content-Type: application/json
+
+{
+  "topics": ["うんこ"],
+  "kanjis": ["天才"]
+}
