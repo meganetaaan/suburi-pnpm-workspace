@@ -1,10 +1,12 @@
 import { Hono } from "hono";
 import type { z } from "zod";
-import { type User, type UserId, userSchema } from "@project/domain";
+import { type User, userId, type UserId, userSchema } from "@project/domain";
 import { zValidator } from "@hono/zod-validator";
 import { nanoid } from "nanoid";
 
-const userCreateRequestSchema = userSchema.omit({ id: true });
+const userCreateRequestSchema = userSchema
+	.omit({ id: true })
+	.extend({ id: userId.optional() });
 export type UserCreateRequest = z.infer<typeof userCreateRequestSchema>;
 
 // 簡易なオンメモリリポジトリ
@@ -16,7 +18,7 @@ export const route = new Hono().post(
 	async (c) => {
     const body = await c.req.json();
     const newUser = userCreateRequestSchema.parse(body);
-    const id = nanoid(10) as UserId;
+    const id = newUser.id == null ? (nanoid(10) as UserId) : newUser.id;
     const user: User = { ...newUser, id };
     userRepository.set(id, user);
     return c.json(user);

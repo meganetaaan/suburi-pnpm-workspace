@@ -3,9 +3,13 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
+  "id": "0000000000",
   "name": "John Doe",
   "email": "john.doe@example.com"
 }
+
+### ユーザが作成した問題文を全件取得
+GET http://localhost:3000/users/0000000000/questions
 
 ### 全件取得
 GET http://localhost:3000/users

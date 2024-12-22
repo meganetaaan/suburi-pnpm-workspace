@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { OpenAI} from "openai";
 import { z } from "zod";
-import { questionScheme, type Question } from "@project/domain";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { zValidator } from "@hono/zod-validator";
 import { nanoid } from "nanoid";
+import { type Question, type QuestionId, questionScheme, userId } from "@project/domain";
 
 if (process.env.OPENAI_API_KEY == null) {
   throw new Error("OPENAI_API_KEY is empty");
@@ -17,9 +17,11 @@ const openai = new OpenAI({
 const questionGenerateRequestSchema = z.object({
   topics: z.array(z.string()).nonempty(),
   kanjis: z.array(z.string()).nonempty(),
+  userId: userId.optional(),
 });
 
 const responseScheme = questionScheme.omit({ id: true });
+export const questionRepository: Map<QuestionId, Question> = new Map();
 
 export type QuestionCreateRequest = z.infer<typeof questionGenerateRequestSchema>;
 
@@ -27,7 +29,7 @@ export const route = new Hono()
   .post("/generate", zValidator("json", questionGenerateRequestSchema), async (c) => {
     const body = await c.req.json();
     console.log(body)
-    const { topics, kanjis } = questionGenerateRequestSchema.parse(body);
+    const { topics, kanjis, userId } = questionGenerateRequestSchema.parse(body);
 
     const prompt = `
 指定した題材を使って、以下で指定する漢字を**全て**含む漢字ドリルの問題文を作成してください。
@@ -69,8 +71,11 @@ Example:
 
     const question: Question = {
       ...generatedQuestion,
+      createdBy: userId,
       id: nanoid(10) as Question["id"],
     };
 
-    return c.json(generatedQuestion);
+    questionRepository.set(question.id, question);
+
+    return c.json(question);
   });
