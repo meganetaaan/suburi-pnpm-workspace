@@ -1,12 +1,10 @@
 {
   "extends": ["@project/config/tsconfig/tsconfig.json"],
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "paths": {
-      "@project/domain": ["../domain/dist/index.d.ts"]
-    },
-    "outDir": "dist"
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
+    "rootDir": "src"
   },
   "types": ["node"],
   "jsx": "react-jsx",

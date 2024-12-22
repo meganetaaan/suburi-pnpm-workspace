@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@project/core2",
+  "name": "@project/core",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",

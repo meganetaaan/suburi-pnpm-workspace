@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const questionScheme = z.object({
+export const questionScheme = z.object({
 	id: z.string().brand<"QuestionId">(),
 	content: z.string().nonempty(),
 	kanjis: z.array(z.string()).min(1),
